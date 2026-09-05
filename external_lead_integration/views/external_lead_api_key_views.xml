@@ -5,7 +5,7 @@
         <field name="name">external.lead.api.key.list</field>
         <field name="model">external.lead.api.key</field>
         <field name="arch" type="xml">
-            <list string="External Lead API Keys">
+            <tree string="External Lead API Keys">
                 <field name="name"/>
                 <field name="key_masked"/>
                 <field name="partner_id"/>
@@ -13,7 +13,7 @@
                 <field name="user_id"/>
                 <field name="last_used_on"/>
                 <field name="active" optional="hide"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -75,7 +75,7 @@
     <record id="action_external_lead_api_key" model="ir.actions.act_window">
         <field name="name" >External Lead API Keys</field>
         <field name="res_model">external.lead.api.key</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first API key
