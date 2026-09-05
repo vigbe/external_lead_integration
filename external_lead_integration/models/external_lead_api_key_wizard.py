@@ -1,3 +1,5 @@
+# pyright: reportMissingImports=false
+# (odoo framework imports resolve only inside the Odoo runtime)
 """Copyable wizard that reveals a freshly minted API key exactly once.
 
 GitHub-style: the plaintext is never stored at rest on ``external.lead.api.key``
