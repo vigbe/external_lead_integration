@@ -2,11 +2,11 @@
 # the "unused expression" warning is an unavoidable false positive.
 # pyright: reportUnusedExpression=false
 {  # noqa: B018  # Odoo manifest: module-level dict literal read via exec()
-    "name": "External Lead Integration",
-    "version": "19.0.1.4.0",
-    "category": "Sales/CRM",
-    "summary": "Public REST endpoint to create CRM leads from external websites",
-    "description": """
+  "name": "External Lead Integration",
+  "version": "19.0.1.4.0",
+  "category": "Sales/CRM",
+  "summary": "Public REST endpoint to create CRM leads from external websites",
+  "description": """
 External Lead Integration
 =========================
 
@@ -45,26 +45,26 @@ Legacy plaintext keys (pre-hardening) are migrated lazily to a hash on their
 first successful request. The endpoint should always sit behind a reverse
 proxy with rate limiting and abuse protection (e.g. reCAPTCHA) at the edge.
 """,
-    "author": "Victor Bastías Escobar",
-    "website": "https://vicbas.com",
-    "support": "contacto@vicbas.com",
-    "maintainer": "Victor Bastías Escobar",
-    "license": "LGPL-3",
-    "depends": [
-        "base",
-        "crm",
-    ],
-    "data": [
-        "security/security_groups.xml",
-        "security/ir.model.access.csv",
-        "views/external_lead_api_key_views.xml",
-        "views/external_lead_api_key_wizard_views.xml",
-        "views/res_config_settings_views.xml",
-    ],
-    "application": True,
-    "installable": True,
-    "auto_install": False,
-    "images": [
-"static/description/thumbnail.png",
-    ],
+  "author": "Victor Bastías Escobar",
+  "website": "https://vicbas.com",
+  "support": "contacto@vicbas.com",
+  "maintainer": "Victor Bastías Escobar",
+  "license": "LGPL-3",
+  "depends": [
+    "base",
+    "crm",
+  ],
+  "data": [
+    "security/security_groups.xml",
+    "security/ir.model.access.csv",
+    "views/external_lead_api_key_views.xml",
+    "views/external_lead_api_key_wizard_views.xml",
+    "views/res_config_settings_views.xml",
+  ],
+  "application": True,
+  "installable": True,
+  "auto_install": False,
+  "images": [
+    "static/description/thumbnail.png",
+  ],
 }

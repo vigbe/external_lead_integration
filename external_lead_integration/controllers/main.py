@@ -100,7 +100,10 @@ class ExternalLeadApiController(http.Controller):
         cfg_source_id = icp.get_param("external_lead_integration.default_source_id")
         cfg_campaign_id = icp.get_param("external_lead_integration.default_campaign_id")
         # Lead type: 'opportunity' (pipeline) or 'lead' (pre-pipeline).
-        cfg_type = icp.get_param("external_lead_integration.default_lead_type") or "opportunity"
+        cfg_type = (
+            icp.get_param("external_lead_integration.default_lead_type")
+            or "opportunity"
+        )
         # require_contact defaults to True (required) when the param is unset.
         rc_val = icp.get_param("external_lead_integration.require_contact")
         require_contact = rc_val in (None, "", False) or _truthy(rc_val)
@@ -179,8 +182,10 @@ class ExternalLeadApiController(http.Controller):
             )
             if not campaign_id:
                 # Fallback: search for standard web portal campaign
-                campaign = request.env["utm.campaign"].sudo().search(
-                    [("name", "=", "Portal: Pagina Web")], limit=1
+                campaign = (
+                    request.env["utm.campaign"]
+                    .sudo()
+                    .search([("name", "=", "Portal: Pagina Web")], limit=1)
                 )
                 if campaign:
                     campaign_id = campaign.id
@@ -256,20 +261,28 @@ class ExternalLeadApiController(http.Controller):
         if email_from:
             norm = email_normalize(email_from)
             if norm:
-                partner = partner_model.search([("email_normalized", "=", norm)], limit=1)
+                partner = partner_model.search(
+                    [("email_normalized", "=", norm)], limit=1
+                )
             if not partner:
-                partner = partner_model.search([("email", "=ilike", email_from)], limit=1)
+                partner = partner_model.search(
+                    [("email", "=ilike", email_from)], limit=1
+                )
         if not partner and phone:
             digits = "".join(ch for ch in (phone or "") if ch.isdigit())
             if len(digits) >= 9:
-                partner = partner_model.search([("phone", "ilike", digits[-9:])], limit=1)
+                partner = partner_model.search(
+                    [("phone", "ilike", digits[-9:])], limit=1
+                )
         if not partner and (contact_name or email_from or phone):
-            partner = partner_model.create({
-                "name": contact_name or email_from or phone or "Contacto Web",
-                "email": email_from,
-                "phone": phone,
-                "customer_rank": 1,
-            })
+            partner = partner_model.create(
+                {
+                    "name": contact_name or email_from or phone or "Contacto Web",
+                    "email": email_from,
+                    "phone": phone,
+                    "customer_rank": 1,
+                }
+            )
         if partner:
             vals["partner_id"] = partner.id
 
