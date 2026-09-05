@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- LIST: never shows the secret `key` or the `key_hash`, only the masked prefix. -->
+    <record id="view_external_lead_api_key_list" model="ir.ui.view">
+        <field name="name">external.lead.api.key.list</field>
+        <field name="model">external.lead.api.key</field>
+        <field name="arch" type="xml">
+            <list string="External Lead API Keys">
+                <field name="name"/>
+                <field name="key_masked"/>
+                <field name="partner_id"/>
+                <field name="team_id"/>
+                <field name="user_id"/>
+                <field name="last_used_on"/>
+                <field name="active" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM: shows the MASKED key only. The full key is revealed ONCE via
+         the copyable wizard (create/regenerate); no plaintext field is ever
+         rendered on this form. -->
+    <record id="view_external_lead_api_key_form" model="ir.ui.view">
+        <field name="name">external.lead.api.key.form</field>
+        <field name="model">external.lead.api.key</field>
+        <field name="arch" type="xml">
+            <form string="External Lead API Key">
+                <header>
+                    <button name="action_open_regenerate_wizard"
+                            string="Regenerate Key"
+                            type="object"
+                            class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Key" name="key_group">
+                            <field name="name"/>
+                            <field name="key_masked" readonly="1"/>
+                            <field name="active"/>
+                            <field name="last_used_on"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Defaults &amp; Attribution" name="defaults_group">
+                            <field name="partner_id"/>
+                            <field name="team_id"/>
+                            <field name="user_id"/>
+                            <field name="source_id"/>
+                            <field name="campaign_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- SEARCH: no secret field is searchable. -->
+    <record id="view_external_lead_api_key_search" model="ir.ui.view">
+        <field name="name">external.lead.api.key.search</field>
+        <field name="model">external.lead.api.key</field>
+        <field name="arch" type="xml">
+            <search string="Search API Keys">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="team_id"/>
+                <field name="user_id"/>
+                <field name="source_id"/>
+                <field name="campaign_id"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_external_lead_api_key" model="ir.actions.act_window">
+        <field name="name" >External Lead API Keys</field>
+        <field name="res_model">external.lead.api.key</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first API key
+            </p>
+            <p>
+                Each key lets an external website create CRM leads through
+                <code>POST /api/v1/leads</code>. Archive a key to revoke it
+                instead of deleting it.
+            </p>
+        </field>
+    </record>
+
+    <!-- MENU under Settings -->
+    <menuitem id="menu_external_lead_api_key"
+              name="External Lead API Keys"
+              parent="base.menu_administration"
+              action="action_external_lead_api_key"
+              sequence="100"/>
+</odoo>

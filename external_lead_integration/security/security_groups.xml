@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--
+            Odoo 19 security pattern (3 pieces), matching sibling modules such as
+            _message_management_ai:
+              1. ir.module.category      -> visible section under Settings > Users
+              2. res.groups.privilege    -> bridge between the category and groups
+              3. res.groups (privilege_id) -> the actual group.
+
+            NOTE: res.groups no longer accepts ``category_id`` directly in Odoo 19
+            (it was replaced by ``privilege_id``); we therefore go through a
+            res.groups.privilege record that references the category.
+        -->
+        <record id="module_category_external_lead_integration" model="ir.module.category">
+            <field name="name">External Lead Integration</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="privilege_external_lead_integration" model="res.groups.privilege">
+            <field name="name">External Lead Integration</field>
+            <field name="category_id" ref="module_category_external_lead_integration"/>
+        </record>
+
+        <record id="group_external_lead_admin" model="res.groups">
+            <field name="name">External Lead Integration: Administrator</field>
+            <field name="privilege_id" ref="privilege_external_lead_integration"/>
+            <field name="implied_ids" eval="[Command.link(ref('base.group_user'))]"/>
+            <field name="comment">Can manage External Lead API keys and settings.</field>
+        </record>
+
+        <!-- Sales managers automatically become External Lead administrators. -->
+        <record id="sales_team.group_sale_manager" model="res.groups">
+            <field name="implied_ids" eval="[Command.link(ref('group_external_lead_admin'))]"/>
+        </record>
+    </data>
+</odoo>

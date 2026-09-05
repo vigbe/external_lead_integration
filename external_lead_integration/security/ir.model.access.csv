@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_external_lead_api_key_admin,external.lead.api.key.admin,model_external_lead_api_key,external_lead_integration.group_external_lead_admin,1,1,1,1
+access_external_lead_api_key_system,external.lead.api.key.system,model_external_lead_api_key,base.group_system,1,1,1,1
+access_external_lead_api_key_wizard_admin,external.lead.api.key.wizard.admin,model_external_lead_api_key_wizard,external_lead_integration.group_external_lead_admin,1,1,1,1
+access_external_lead_api_key_wizard_system,external.lead.api.key.wizard.system,model_external_lead_api_key_wizard,base.group_system,1,1,1,1

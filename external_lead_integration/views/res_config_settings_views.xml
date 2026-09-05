@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Dedicated settings app, following the proven pattern used by the
+        installed `onlyoffice_odoo` module: anchor on "//form" (which always
+        exists in res.config.settings) and add our own <app> block. We do NOT
+        anchor on a specific existing <app data-key='...'>, because that element
+        is not guaranteed to be present (a fresh/test DB install failed on it).
+        Fields use config_parameter= so they persist in ir.config_parameter and
+        can be read by the controller (auth='public', no user session).
+    -->
+    <record id="res_config_settings_view_form_external_lead" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.external.lead</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="External Leads"
+                     string="External Leads"
+                     name="external_lead_integration"
+                     groups="base.group_system">
+                    <block title="External Lead Integration"
+                           id="external_lead_integration_settings"
+                           name="external_lead_integration_settings">
+                        <block title="General" id="external_lead_general">
+                            <setting id="external_lead_require_contact_setting"
+                                     string="Require contact info"
+                                     help="Require name and either email or phone when creating a lead.">
+                                <field name="external_lead_require_contact"/>
+                            </setting>
+                            <setting id="external_lead_dedup_setting"
+                                     string="Deduplicate by email"
+                                     help="When an email matches an existing open lead, return that lead instead of creating a duplicate.">
+                                <field name="external_lead_dedup"/>
+                            </setting>
+                        </block>
+
+                        <block title="Default Attribution" id="external_lead_attribution">
+                            <setting id="external_lead_default_team_setting"
+                                     string="Default Sales Team"
+                                     help="Sales team used when the caller and the API key provide none.">
+                                <field name="external_lead_default_team_id"/>
+                            </setting>
+                            <setting id="external_lead_default_user_setting"
+                                     string="Default Salesperson">
+                                <field name="external_lead_default_user_id"/>
+                            </setting>
+                            <setting id="external_lead_default_stage_setting"
+                                     string="Default Stage">
+                                <field name="external_lead_default_stage_id"/>
+                            </setting>
+                            <setting id="external_lead_default_source_setting"
+                                     string="Default Source">
+                                <field name="external_lead_default_source_id"/>
+                            </setting>
+                            <setting id="external_lead_default_campaign_setting"
+                                     string="Default Campaign">
+                                <field name="external_lead_default_campaign_id"/>
+                            </setting>
+                        </block>
+
+                        <block title="Security" id="external_lead_security">
+                            <setting id="external_lead_api_keys_setting"
+                                     string="API Keys"
+                                     help="Create and rotate the secret tokens used by external websites.">
+                                <button type="action"
+                                        name="%(external_lead_integration.action_external_lead_api_key)d"
+                                        string="Manage API Keys"
+                                        class="btn-link"
+                                        icon="fa-arrow-right"/>
+                            </setting>
+                            <setting id="external_lead_cors_setting"
+                                     string="Allowed CORS origins"
+                                     help="Comma-separated website origins allowed to call the endpoint from a browser (e.g. https://ia-prop.cl). Leave empty to block cross-origin requests.">
+                                <field name="external_lead_cors_allowed_origins"/>
+                            </setting>
+                        </block>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

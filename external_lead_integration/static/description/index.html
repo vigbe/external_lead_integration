@@ -1,0 +1,212 @@
+<section class="oe_dark">
+    <div class="oe_row oe_spaced" style="max-width: 900px; margin: 0 auto">
+        <!-- Hero -->
+        <div class="oe_span12 text-center" style="padding: 30px 0">
+            <h2 class="oe_slogan" style="font-size: 2.5em; color: #2563eb">
+                External Lead Integration
+            </h2>
+            <h3
+                class="oe_slogan"
+                style="font-size: 1.3em; color: #666; font-weight: 300"
+            >
+                Turn any website form into a CRM lead &#8212; a secure REST
+                endpoint for Odoo
+            </h3>
+            <p style="margin-top: 10px; font-size: 1.1em">
+                Developed by
+                <a
+                    href="https://vicbas.com"
+                    target="_blank"
+                    style="font-weight: bold; color: #2563eb"
+                    >vicbas.com</a
+                >
+            </p>
+        </div>
+
+        <!-- Banner -->
+        <div class="oe_span12 text-center">
+            <div class="oe_demo oe_picture oe_screenshot">
+                <img
+                    src="thumbnail.png"
+                    alt="External Lead Integration &#8212; module banner"
+                    style="
+                        width: 100%;
+                        border-radius: 8px;
+                        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+                        margin: 10px 0;
+                    "
+                />
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="oe_span12 oe_mt32 text-center" style="padding: 20px 0">
+            <h3 style="color: #2563eb">Key Features</h3>
+            <div class="oe_span4 oe_mt16 text-center">
+                <span class="fa fa-key fa-3x" style="color: #2563eb" />
+                <h4>API-Key Authentication</h4>
+                <p class="text-muted">
+                    Each integration gets a secret key sent in the X-API-Key
+                    header. Keys are stored as SHA-256 hashes &#8212; the
+                    plaintext is never persisted.
+                </p>
+            </div>
+            <div class="oe_span4 oe_mt16 text-center">
+                <span class="fa fa-exchange fa-3x" style="color: #2563eb" />
+                <h4>Real HTTP Semantics</h4>
+                <p class="text-muted">
+                    A public endpoint that answers with real status codes
+                    (201 created, 200 duplicate, 400/401/422/500) and a JSON
+                    body &#8212; no Odoo session required.
+                </p>
+            </div>
+            <div class="oe_span4 oe_mt16 text-center">
+                <span class="fa fa-sliders fa-3x" style="color: #2563eb" />
+                <h4>Configurable Defaults</h4>
+                <p class="text-muted">
+                    Default sales team, salesperson, stage, source, campaign
+                    and contact-info requirements are set in Settings and
+                    applied to every lead.
+                </p>
+            </div>
+            <div class="oe_span4 oe_mt16 text-center">
+                <span class="fa fa-user-secret fa-3x" style="color: #2563eb" />
+                <h4>Per-Key Overrides</h4>
+                <p class="text-muted">
+                    An API key can force its own sales team and salesperson,
+                    so each website or landing page routes leads exactly where
+                    you want.
+                </p>
+            </div>
+            <div class="oe_span4 oe_mt16 text-center">
+                <span class="fa fa-copy fa-3x" style="color: #2563eb" />
+                <h4>Smart Deduplication</h4>
+                <p class="text-muted">
+                    Optional email-based duplicate detection: repeated
+                    submissions return 200 with the existing lead instead of
+                    creating noise.
+                </p>
+            </div>
+            <div class="oe_span4 oe_mt16 text-center">
+                <span class="fa fa-globe fa-3x" style="color: #2563eb" />
+                <h4>CORS Ready</h4>
+                <p class="text-muted">
+                    A configurable origin allowlist lets browser forms read
+                    the responses directly, with preflight handled for you.
+                </p>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div
+            class="oe_span12 oe_mt32"
+            style="padding: 20px 0; border-top: 1px solid #eee"
+        >
+            <h3 class="text-center" style="color: #2563eb">How It Works</h3>
+            <div class="oe_span4 oe_mt16 text-center">
+                <h4>1. Generate a key</h4>
+                <p class="text-muted">
+                    CRM &#8594; Configuration &#8594; External Lead API Keys.
+                    The secret is shown once in a copyable wizard.
+                </p>
+            </div>
+            <div class="oe_span4 oe_mt16 text-center">
+                <h4>2. POST your leads</h4>
+                <p class="text-muted">
+                    Your website sends JSON to the endpoint with the X-API-Key
+                    header &#8212; from any form, framework or marketing tool.
+                </p>
+            </div>
+            <div class="oe_span4 oe_mt16 text-center">
+                <h4>3. Lead in your CRM</h4>
+                <p class="text-muted">
+                    The lead is created instantly with your defaults: team,
+                    salesperson, stage, source and campaign.
+                </p>
+            </div>
+        </div>
+
+        <!-- Security First -->
+        <div
+            class="oe_span12 oe_mt32"
+            style="padding: 20px 0; border-top: 1px solid #eee"
+        >
+            <h3 class="text-center" style="color: #2563eb">Security First</h3>
+            <p
+                class="text-center text-muted"
+                style="
+                    max-width: 700px;
+                    margin: 0 auto;
+                    font-size: 1.1em;
+                    line-height: 1.8;
+                "
+            >
+                Keys are stored as SHA-256 hashes: the full secret is shown
+                exactly once, then only a masked value is displayed.
+                Regenerate to rotate a key at any time, or archive it to
+                revoke access instantly. Legacy plaintext keys are migrated to
+                a hash automatically on their first successful request. As
+                with any public endpoint, keep it behind a reverse proxy with
+                rate limiting and abuse protection (e.g. reCAPTCHA) at the
+                edge.
+            </p>
+        </div>
+
+        <!-- Compatibility -->
+        <div
+            class="oe_span12 oe_mt32"
+            style="padding: 20px 0; border-top: 1px solid #eee"
+        >
+            <h3 class="text-center" style="color: #2563eb">Compatibility</h3>
+            <p
+                class="text-center text-muted"
+                style="
+                    max-width: 700px;
+                    margin: 0 auto;
+                    font-size: 1.1em;
+                    line-height: 1.8;
+                "
+            >
+                Published for Odoo 16.0, 17.0, 18.0 and 19.0 &#8212; Community
+                and Enterprise. Depends only on <strong>base</strong> and
+                <strong>crm</strong>: optional real-estate fields are mapped
+                only when they exist in your database, so the module works
+                with a plain CRM out of the box.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div
+            class="oe_span12 oe_mt32 text-center"
+            style="padding: 25px 0; border-top: 1px solid #eee"
+        >
+            <p
+                style="
+                    margin: 0 auto 14px auto;
+                    max-width: 640px;
+                    font-family: monospace;
+                    font-size: 0.95em;
+                    color: #333;
+                    background: #f6f8fa;
+                    border: 1px solid #ddd;
+                    border-radius: 6px;
+                    padding: 12px 16px;
+                "
+            >
+                POST /api/v1/leads<br />
+                X-API-Key: &lt;your-secret-key&gt;<br />
+                { "name": "...", "email": "...", "phone": "..." }
+            </p>
+            <p class="text-muted" style="margin-bottom: 6px">
+                &#169; Victor Bast&#237;as Escobar &#8212;
+                <a
+                    href="https://vicbas.com"
+                    target="_blank"
+                    style="font-weight: bold; color: #2563eb"
+                    >vicbas.com</a
+                >
+            </p>
+            <p class="text-muted">Free &amp; Open Source &#8212; LGPL-3</p>
+        </div>
+    </div>
+</section>

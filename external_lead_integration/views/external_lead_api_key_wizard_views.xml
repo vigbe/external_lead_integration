@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Wizard that reveals a freshly minted API key exactly once. The plaintext
+        is never stored on external.lead.api.key; it lives only on this transient
+        record until the wizard is closed (which deletes it).
+    -->
+    <record id="view_external_lead_api_key_wizard_form" model="ir.ui.view">
+        <field name="name">external.lead.api.key.wizard.form</field>
+        <field name="model">external.lead.api.key.wizard</field>
+        <field name="arch" type="xml">
+            <form string="API Key">
+                <sheet>
+                    <group>
+                        <field name="key_id" readonly="1" invisible="not key_id"/>
+                        <field name="name" invisible="key_id or new_key"/>
+                        <field name="new_key" readonly="1" invisible="not new_key"/>
+                    </group>
+                    <div class="alert alert-warning" role="alert" invisible="not new_key">
+                        ⚠️ Copy this key now; it will not be shown again.
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_create_key" string="Generate Key"
+                            type="object" class="btn-primary"
+                            invisible="key_id or new_key"/>
+                    <button name="action_regenerate_key" string="Regenerate Key"
+                            type="object" class="btn-primary"
+                            invisible="not key_id or new_key"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action: open the wizard to create a NEW key (no default_key_id). -->
+    <record id="action_external_lead_api_key_wizard_create" model="ir.actions.act_window">
+        <field name="name">New External Lead API Key</field>
+        <field name="res_model">external.lead.api.key.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!--
+        Menu entry so creation goes through the wizard (the key is visible once).
+        Sibling under the existing "External Lead API Keys" menu (which keeps the
+        masked list/form for managing existing keys).
+    -->
+    <menuitem id="menu_external_lead_api_key_wizard_create"
+              name="New API Key"
+              parent="menu_external_lead_api_key"
+              action="action_external_lead_api_key_wizard_create"
+              sequence="5"/>
+</odoo>

@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+
+# Local agent / runtime state
+.atl/
+.pi-subagents/
+.codegraph/
+.DS_Store
+
+# Build output
+dist/
