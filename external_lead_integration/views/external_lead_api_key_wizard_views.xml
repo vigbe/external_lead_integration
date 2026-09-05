@@ -12,21 +12,21 @@
             <form string="API Key">
                 <sheet>
                     <group>
-                        <field name="key_id" readonly="1" invisible="not key_id"/>
-                        <field name="name" invisible="key_id or new_key"/>
-                        <field name="new_key" readonly="1" invisible="not new_key"/>
+                        <field name="key_id" readonly="1" attrs="{&quot;invisible&quot;: [(&quot;key_id&quot;, &quot;=&quot;, False)]}"/>
+                        <field name="name" attrs="{&quot;invisible&quot;: [&quot;|&quot;, (&quot;key_id&quot;, &quot;!=&quot;, False), (&quot;new_key&quot;, &quot;!=&quot;, False)]}"/>
+                        <field name="new_key" readonly="1" attrs="{&quot;invisible&quot;: [(&quot;new_key&quot;, &quot;=&quot;, False)]}"/>
                     </group>
-                    <div class="alert alert-warning" role="alert" invisible="not new_key">
+                    <div class="alert alert-warning" role="alert" attrs="{&quot;invisible&quot;: [(&quot;new_key&quot;, &quot;=&quot;, False)]}">
                         ⚠️ Copy this key now; it will not be shown again.
                     </div>
                 </sheet>
                 <footer>
                     <button name="action_create_key" string="Generate Key"
                             type="object" class="btn-primary"
-                            invisible="key_id or new_key"/>
+                            attrs="{&quot;invisible&quot;: [&quot;|&quot;, (&quot;key_id&quot;, &quot;!=&quot;, False), (&quot;new_key&quot;, &quot;!=&quot;, False)]}"/>
                     <button name="action_regenerate_key" string="Regenerate Key"
                             type="object" class="btn-primary"
-                            invisible="not key_id or new_key"/>
+                            attrs="{&quot;invisible&quot;: [&quot;|&quot;, (&quot;key_id&quot;, &quot;=&quot;, False), (&quot;new_key&quot;, &quot;!=&quot;, False)]}"/>
                     <button string="Close" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
