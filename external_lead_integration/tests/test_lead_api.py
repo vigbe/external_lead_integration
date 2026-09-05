@@ -1,3 +1,5 @@
+# pyright: reportMissingImports=false
+# (odoo framework imports resolve only inside the Odoo runtime)
 """HTTP tests for the ``POST /api/v1/leads`` endpoint (HttpCase).
 
 These exercise the real routing/auth stack: the route runs as ``auth='public'``

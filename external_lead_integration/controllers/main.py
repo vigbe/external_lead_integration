@@ -1,3 +1,4 @@
+# pyright: reportMissingImports=false  # odoo framework: resolves inside the Odoo runtime only
 """External Lead Integration — public REST endpoint.
 
 ``POST /api/v1/leads`` creates a ``crm.lead`` from a JSON body authenticated

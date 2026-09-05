@@ -1,3 +1,6 @@
+# Odoo __manifest__.py is a bare dict literal (read via ast.literal_eval);
+# the "unused expression" warning is an unavoidable false positive.
+# pyright: reportUnusedExpression=false
 {  # noqa: B018  # Odoo manifest: module-level dict literal read via exec()
     "name": "External Lead Integration",
     "version": "19.0.1.4.0",
