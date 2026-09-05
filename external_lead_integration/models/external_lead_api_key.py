@@ -1,3 +1,5 @@
+# pyright: reportMissingImports=false
+# (odoo framework imports resolve only inside the Odoo runtime)
 """``external.lead.api.key`` — secret tokens used to authenticate the public
 ``POST /api/v1/leads`` endpoint.
 

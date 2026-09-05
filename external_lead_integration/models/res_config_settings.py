@@ -1,3 +1,5 @@
+# pyright: reportMissingImports=false
+# (odoo framework imports resolve only inside the Odoo runtime)
 """Configuration for the External Lead Integration endpoint.
 
 All fields use ``config_parameter=`` so they auto-persist in

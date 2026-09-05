@@ -1,3 +1,5 @@
+# pyright: reportMissingImports=false
+# (odoo framework imports resolve only inside the Odoo runtime)
 """Shared HTTP helpers for the External Lead Integration API.
 
 Kept import-light on purpose: ``base_api`` depends only on the standard
