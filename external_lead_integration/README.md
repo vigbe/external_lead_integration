@@ -67,21 +67,6 @@ Send `Content-Type: application/json` and `X-API-Key: <your key>`.
 when on, `name` **and** (`email` **or** `phone`) are mandatory.
 \*\* Either `email` or `phone` satisfies the contact requirement.
 
-### Optional real-estate (inmobiliario) fields
-
-These are mapped to `crm.lead` custom fields **only when those fields exist** on
-the target database (so the module also works on a plain CRM):
-
-| Request key                | crm.lead field                       | Cast  |
-| -------------------------- | ------------------------------------ | ----- |
-| `property_id`              | `propiedad_id`                       | int   |
-| `property_ref`             | `propiedad_ref`                      | str   |
-| `property_value_clp`       | `propiedad_valor_clp`                | float |
-| `lead_category`            | `x_lead_category`                    | str   |
-| `property_type_interest`   | `x_studio_tipo_de_propiedad_de_inters` | str |
-| `reason_purchase`          | `x_studio_motivo_compra_propiedad`   | str   |
-| `has_credit`               | `x_studio_tiene_credito`             | str   |
-
 ---
 
 ### curl example
@@ -227,4 +212,4 @@ read status) can be added in `controllers/main.py` and share the helpers in
 
 ## License
 
-LGPL-3 — © ia-prop.com
+LGPL-3 — © Victor Bastías Escobar (vicbas.com)
