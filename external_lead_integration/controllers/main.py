@@ -1,4 +1,5 @@
-# pyright: reportMissingImports=false  # odoo framework: resolves inside the Odoo runtime only
+# odoo framework: resolves inside the Odoo runtime only
+# pyright: reportMissingImports=false
 """External Lead Integration — public REST endpoint.
 
 ``POST /api/v1/leads`` creates a ``crm.lead`` from a JSON body authenticated
@@ -21,19 +22,6 @@ from odoo.tools import email_normalize
 from .base_api import _get_api_key_record, _json_error, _json_ok  # type: ignore[import]
 
 _logger = logging.getLogger(__name__)
-
-# Optional real-estate (inmobiliario) fields. Each entry maps a request key to
-# a ``crm.lead`` field name. The field is set ONLY when it actually exists on
-# ``crm.lead`` (checked at runtime), so the module works on a plain CRM too.
-_INMOBILIARIO_FIELD_MAP = {
-    "property_id": "propiedad_id",
-    "property_ref": "propiedad_ref",
-    "property_value_clp": "propiedad_valor_clp",
-    "lead_category": "x_lead_category",
-    "property_type_interest": "x_studio_tipo_de_propiedad_de_inters",
-    "reason_purchase": "x_studio_motivo_compra_propiedad",
-    "has_credit": "x_studio_tiene_credito",
-}
 
 
 class _FieldError(Exception):
@@ -177,35 +165,9 @@ class ExternalLeadApiController(http.Controller):
                 api_key.campaign_id.id if api_key.campaign_id else cfg_campaign_id,
                 "campaign_id",
             )
-            if not campaign_id:
-                # Fallback: search for standard web portal campaign
-                campaign = request.env["utm.campaign"].sudo().search(
-                    [("name", "=", "Portal: Pagina Web")], limit=1
-                )
-                if campaign:
-                    campaign_id = campaign.id
             if campaign_id:
                 vals["campaign_id"] = campaign_id
 
-            # 7. Optional inmobiliario fields — added only when the value is
-            #    present AND the target field exists on crm.lead.
-            for req_key, field_name in _INMOBILIARIO_FIELD_MAP.items():
-                if req_key not in data:
-                    continue
-                value = data.get(req_key)
-                if value in (None, "") or field_name not in lead_fields:
-                    continue
-                if field_name.endswith("_id"):
-                    casted = _as_int(value, req_key)
-                    if casted:
-                        vals[field_name] = casted
-                elif field_name.endswith("_clp"):
-                    try:
-                        vals[field_name] = float(value)
-                    except (TypeError, ValueError) as exc:
-                        raise _FieldError(req_key) from exc
-                else:
-                    vals[field_name] = str(value)
         except _FieldError as field_error:
             return _json_error(
                 422,

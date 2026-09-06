@@ -97,9 +97,9 @@ class TestLeadApi(HttpCase):
         resp = self._post({})
         self.assertEqual(resp.status_code, 422)
 
-    def test_extra_inmobiliario_fields_ignored_when_absent(self):
-        # property_ref maps to a field that usually does not exist on a plain
-        # CRM; the controller must ignore it and still create the lead.
+    def test_unknown_body_fields_ignored(self):
+        # Unknown body keys (e.g. property_ref) must be ignored and the lead
+        # still created.
         resp = self._post(
             {"name": "Prop", "email": "prop@example.com", "property_ref": "CL-999"}
         )
@@ -242,26 +242,6 @@ class TestLeadApi(HttpCase):
         # Body values were ignored: the bogus team/tag must not be attributed.
         self.assertNotEqual(lead.team_id, bogus_team)
         self.assertFalse(lead.tag_ids)
-
-    def test_inmobiliario_fields_mapped_when_present(self):
-        """When the target field exists on crm.lead, the value is mapped."""
-        lead_model = self.env["crm.lead"]
-        target_field = "propiedad_ref"
-        if target_field not in lead_model._fields:
-            self.skipTest(
-                "crm.lead does not define the inmobiliario custom field "
-                "'propiedad_ref'; mapping is only exercised on the real-estate CRM."
-            )
-        resp = self._post(
-            {
-                "name": "Prop Mapped",
-                "email": "propmapped@example.com",
-                "property_ref": "CL-123",
-            }
-        )
-        self.assertIn(resp.status_code, (200, 201))
-        lead = lead_model.browse(resp.json()["lead_id"])
-        self.assertEqual(lead[target_field], "CL-123")
 
     def test_dedup_returns_same_lead_id(self):
         """Dedup returns the SAME lead id, not just a 'duplicate' status."""
