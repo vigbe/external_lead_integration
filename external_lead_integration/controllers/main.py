@@ -168,6 +168,16 @@ class ExternalLeadApiController(http.Controller):
                 api_key.campaign_id.id if api_key.campaign_id else cfg_campaign_id,
                 "campaign_id",
             )
+            if not campaign_id:
+                # Fallback: standard web-portal campaign (main-only personal
+                # attribution; series branches stay generic).
+                campaign = (
+                    request.env["utm.campaign"]
+                    .sudo()
+                    .search([("name", "=", "Portal: Pagina Web")], limit=1)
+                )
+                if campaign:
+                    campaign_id = campaign.id
             if campaign_id:
                 vals["campaign_id"] = campaign_id
 
