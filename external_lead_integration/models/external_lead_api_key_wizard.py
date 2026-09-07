@@ -27,7 +27,7 @@ class ExternalLeadApiKeyWizard(models.TransientModel):
 
     name = fields.Char(
         string="Label",
-        help='Human label for a new key, e.g. "Landing ia-prop.cl".',
+        help='Human label for a new key, e.g. "Landing page A".',
     )
     key_id = fields.Many2one(
         comodel_name="external.lead.api.key",
