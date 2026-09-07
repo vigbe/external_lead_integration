@@ -3,7 +3,7 @@
 # pyright: reportUnusedExpression=false
 {  # noqa: B018  # Odoo manifest: module-level dict literal read via exec()
     "name": "External Lead Integration",
-    "version": "18.0.1.4.1",
+    "version": "18.0.1.4.2",
     "category": "Sales/CRM",
     "summary": "Public REST endpoint to create CRM leads from external websites",
     "description": """

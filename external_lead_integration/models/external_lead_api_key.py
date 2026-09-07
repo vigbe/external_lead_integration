@@ -40,7 +40,7 @@ class ExternalLeadApiKey(models.Model):
     name = fields.Char(
         string="Label",
         required=True,
-        help='Human label, e.g. "Landing ia-prop.cl"',
+        help='Human label, e.g. "Landing page A"',
     )
     # LEGACY plaintext key from before the hardening. Kept ONLY so existing keys
     # can be migrated to ``key_hash`` on first use; it is cleared afterwards.
