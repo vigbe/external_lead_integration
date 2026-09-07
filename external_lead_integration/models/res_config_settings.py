@@ -59,7 +59,7 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="external_lead_integration.cors_allowed_origins",
         string="Allowed CORS origins",
         help="Comma-separated list of website origins allowed to call the "
-        "endpoint from a browser (e.g. https://ia-prop.cl, "
-        "https://www.ia-prop.cl). Leave empty to block all cross-origin "
+        "endpoint from a browser (e.g. https://www.example.com, "
+        "https://example.com). Leave empty to block all cross-origin "
         "requests (same-origin only).",
     )
