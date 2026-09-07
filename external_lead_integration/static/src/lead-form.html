@@ -12,7 +12,7 @@
   =====================================================================
   1. Odoo's public URL is stored in System Parameters under `web.base.url`
      (Settings ‣ Technical ‣ Parameters ‣ System Parameters),
-     e.g. https://crm.ia-prop.com . That is ALWAYS the host the integrator
+     e.g. https://odoo.example.com . That is ALWAYS the host the integrator
      connects to.
   2. The endpoint is that base URL + `/api/v1/leads`:
          https://<web.base.url>/api/v1/leads
@@ -279,8 +279,8 @@
         // ====================================================================
         // Full URL of the Odoo endpoint = <web.base.url> + "/api/v1/leads".
         // Find web.base.url in Odoo: Settings ‣ Technical ‣ Parameters ‣ System
-        // Parameters. Example: https://crm.ia-prop.com/api/v1/leads
-        var ENDPOINT_URL = "https://crm.ia-prop.com/api/v1/leads";
+        // Parameters. Example: https://odoo.example.com/api/v1/leads
+        var ENDPOINT_URL = "https://odoo.example.com/api/v1/leads";
 
         // ⚠️ SECURITY: this key is visible to anyone who opens DevTools.
         // For production use a proxy + rate limiting + reCAPTCHA. See header note.

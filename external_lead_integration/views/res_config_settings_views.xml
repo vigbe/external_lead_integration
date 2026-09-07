@@ -71,7 +71,7 @@
                             </setting>
                             <setting id="external_lead_cors_setting"
                                      string="Allowed CORS origins"
-                                     help="Comma-separated website origins allowed to call the endpoint from a browser (e.g. https://ia-prop.cl). Leave empty to block cross-origin requests.">
+                                     help="Comma-separated website origins allowed to call the endpoint from a browser (e.g. https://www.example.com). Leave empty to block cross-origin requests.">
                                 <field name="external_lead_cors_allowed_origins"/>
                             </setting>
                         </block>
