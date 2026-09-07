@@ -33,7 +33,7 @@ External Lead API Keys**).
 ## Create an API key
 
 1. Go to **CRM ‣ Configuration ‣ External Lead API Keys ‣ New API Key**.
-2. Give it a **Label** (e.g. "Landing ia-prop.cl") and click **Generate Key**.
+2. Give it a **Label** (e.g. "Landing page A") and click **Generate Key**.
 3. The **API key** is generated and shown **once** in a copyable wizard — copy it
    now; it cannot be recovered later (only its SHA-256 hash is stored).
 4. Optionally set a **Sales Team** / **Salesperson** to force defaults for this
@@ -79,8 +79,8 @@ curl -X POST https://crm.example.com/api/v1/leads \
     "name": "Juan Pérez",
     "email": "juan@example.com",
     "phone": "+56912345678",
-    "message": "Quiero más info sobre la propiedad CL-123",
-    "title": "Contacto web - Propiedad CL-123"
+    "message": "I would like more information about your services",
+    "title": "Website contact"
   }'
 ```
 
@@ -96,7 +96,7 @@ const res = await fetch("https://crm.example.com/api/v1/leads", {
   body: JSON.stringify({
     name: "Juan Pérez",
     email: "juan@example.com",
-    message: "Quiero más info",
+    message: "I want more info",
   }),
 });
     const data = await res.json();
@@ -108,15 +108,15 @@ const res = await fetch("https://crm.example.com/api/v1/leads", {
     ## CORS (cross-origin websites)
     
     Browsers block a `fetch` to a different domain than the page unless the server
-    returns CORS headers. Since the **website** (e.g. `https://ia-prop.cl`) and the
-    **Odoo database** (its `web.base.url`, e.g. `https://crm.ia-prop.com`) are almost
+    returns CORS headers. Since the **website** (e.g. `https://www.example.com`) and the
+    **Odoo database** (its `web.base.url`, e.g. `https://odoo.example.com`) are almost
     always on different domains, you must allow the website's origin.
     
     The module ships a built-in **CORS allowlist**:
     
     1. Go to **Settings ‣ External Leads ‣ Security ‣ Allowed CORS origins**.
     2. Enter the comma-separated origins of the sites that may call the endpoint,
-       e.g. `https://ia-prop.cl, https://www.ia-prop.cl`.
+       e.g. `https://www.example.com, https://example.com`.
     3. The endpoint answers the browser `OPTIONS` preflight with
        `Access-Control-Allow-Origin` (the exact origin), `Access-Control-Allow-Methods`
        (`POST, OPTIONS`) and `Access-Control-Allow-Headers` (`Content-Type, X-API-Key`).
