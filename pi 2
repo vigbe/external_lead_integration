@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Lanzador de pi para este proyecto.
+# - Actualiza pi y sus extensiones
+# - Reanuda la ultima sesion de ESTE directorio (pi -c)
+set -uo pipefail
+
+PI="${PI_BIN:-/opt/homebrew/bin/pi}"
+
+# Asegura que pi corra en el directorio de este proyecto (no en el cwd actual)
+cd "$(dirname "$0")" || { echo "No se pudo entrar al directorio del proyecto"; exit 1; }
+
+if [ ! -x "$PI" ]; then
+  echo "No se encontro el binario pi en: $PI"
+  echo "Define PI_BIN=/ruta/a/pi o ajusta este script."
+  exit 1
+fi
+
+echo ">> [$(pwd)] Actualizando pi..."
+"$PI" update
+
+echo ">> [$(pwd)] Actualizando extensiones..."
+"$PI" update --extensions
+
+# Margen breve para que los cambios de extension se asienten antes de arrancar
+sleep 2
+
+echo ">> [$(pwd)] Reanudando ultima sesion..."
+exec "$PI" -c
