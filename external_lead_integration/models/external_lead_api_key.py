@@ -176,7 +176,9 @@ class ExternalLeadApiKey(models.Model):
             vals["key_prefix"] = plaintext[:_KEY_PREFIX_LEN]
             generated_keys.append(plaintext)
         records = super().create(vals_list)
-        for record, plaintext in zip(records, generated_keys, strict=True):
+        # NOTE: zip(strict=...) requires Python >= 3.10; Odoo 16 runs on 3.9.
+        # Lengths are equal by construction (generated_keys from vals_list).
+        for record, plaintext in zip(records, generated_keys):  # noqa: B905
             if plaintext:
                 record.full_key = plaintext
         return records
