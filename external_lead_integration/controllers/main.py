@@ -236,16 +236,16 @@ class ExternalLeadApiController(http.Controller):
                 )
         if not partner and (contact_name or email_from or phone):
             partner_vals = {
-                    "name": contact_name or email_from or phone or "Contacto Web",
-                    "email": email_from,
-                    "phone": phone}
+                "name": contact_name or email_from or phone or "Contacto Web",
+                "email": email_from,
+                "phone": phone,
+            }
 
             # customer_rank was removed from res.partner in recent Odoo
 
             # releases (17.4+/18/19); only write it when the field exists.
 
             if "customer_rank" in partner_model._fields:
-
                 partner_vals["customer_rank"] = 1
 
             partner = partner_model.create(partner_vals)
