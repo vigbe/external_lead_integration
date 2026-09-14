@@ -50,6 +50,8 @@ proxy with rate limiting and abuse protection (e.g. reCAPTCHA) at the edge.
   "support": "contacto@vicbas.com",
   "maintainer": "Victor Bastías Escobar",
   "license": "LGPL-3",
+  "price": 9.99,
+  "currency": "USD",
   "depends": [
     "base",
     "crm",
