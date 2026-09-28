@@ -209,6 +209,24 @@ class TestLeadApi(HttpCase):
         if default_stage:
             self.assertEqual(lead.stage_id, default_stage)
 
+    def test_no_user_resolution_leaves_lead_unassigned(self):
+        """With neither a key override nor a config default, the lead must be
+        created UNASSIGNED — never with the public user as salesperson.
+
+        The route runs ``auth='public'`` and Odoo's ``sudo()`` does not change
+        the user, so the ORM field default (``env.user``) would otherwise
+        stamp the public user on every unattributed lead."""
+        icp = self.env["ir.config_parameter"].sudo()
+        icp.set_param("external_lead_integration.default_user_id", False)
+        # The shared test key from setUpClass carries no user override.
+        self.assertFalse(self.api_key.user_id)
+        resp = self._post({"name": "Unassigned", "email": "unassigned@example.com"})
+        self.assertEqual(resp.status_code, 201, resp.text)
+        lead = self.env["crm.lead"].browse(resp.json()["lead_id"])
+        # Explicitly unassigned, not the public user.
+        self.assertFalse(lead.user_id)
+        self.assertNotEqual(lead.user_id.id, self.env.ref("base.public_user").id)
+
     def test_invalid_json_returns_400(self):
         """A malformed JSON body returns 400 with code ``invalid_json``."""
         resp = self.url_open(

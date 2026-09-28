@@ -152,6 +152,15 @@ class ExternalLeadApiController(http.Controller):
             )
             if user_id:
                 vals["user_id"] = user_id
+            else:
+                # This route runs ``auth='public'`` and Odoo 19's ``sudo()``
+                # does NOT change the user, so the ``crm.lead`` field default
+                # (``default=lambda self: self.env.user``) would silently
+                # stamp the PUBLIC USER as salesperson. Set it explicitly to
+                # empty so unattributed leads stay "unassigned" for the team
+                # to pick up (the field's ``share=False`` domain is UI-only
+                # and is not enforced by the ORM on create).
+                vals["user_id"] = False
 
             source_id = _as_int(
                 api_key.source_id.id if api_key.source_id else cfg_source_id,
@@ -245,14 +254,17 @@ class ExternalLeadApiController(http.Controller):
                     [("phone", "ilike", digits[-9:])], limit=1
                 )
         if not partner and (contact_name or email_from or phone):
-            partner = partner_model.create(
-                {
-                    "name": contact_name or email_from or phone or "Contacto Web",
-                    "email": email_from,
-                    "phone": phone,
-                    "customer_rank": 1,
-                }
-            )
+            partner_vals = {
+                "name": contact_name or email_from or phone or "Contacto Web",
+                "email": email_from,
+                "phone": phone,
+            }
+            # ``customer_rank`` was removed from the core partner model in
+            # Odoo 19; set it only when a custom module still provides it
+            # (same optional-field pattern used for the real-estate fields).
+            if "customer_rank" in partner_model._fields:
+                partner_vals["customer_rank"] = 1
+            partner = partner_model.create(partner_vals)
         if partner:
             vals["partner_id"] = partner.id
 
