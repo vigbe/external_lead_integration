@@ -4,21 +4,21 @@ Public REST endpoint that lets external websites, landing pages and marketing
 forms create **CRM leads** (`crm.lead`) in Odoo without an
 Odoo user session.
 
-> Available on the Odoo Apps Store for Odoo 16.0, 17.0, 18.0 and 19.0 — by
+> Available on the Odoo Apps Store for Odoo 16.0, 17.0, 18.0, 19.0 and 20.0 — by
 > [Victor Bastías Escobar](https://vicbas.com).
 
 - **Endpoint:** `POST /api/v1/leads`
 - **Auth:** secret API key sent in the `X-API-Key` header
 - **Format:** JSON request body, JSON response with **real HTTP status codes**
 
-> Odoo 19 Community · Python 3.10+ · depends on `base` + `crm`
+> Odoo 20 Community · Python 3.12+ · PostgreSQL 16+ · depends on `base` + `crm`
 
 ---
 
 ## Install
 
 ```bash
-# in the Odoo 19 container, with the addons path configured
+# in the Odoo 20 container, with the addons path configured
 odoo -i external_lead_integration -d <your_db>
 # or update later
 odoo -u external_lead_integration -d <your_db>

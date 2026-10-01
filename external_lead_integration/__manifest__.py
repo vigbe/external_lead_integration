@@ -3,14 +3,14 @@
 # pyright: reportUnusedExpression=false
 {  # noqa: B018  # Odoo manifest: module-level dict literal read via exec()
   "name": "External Lead Integration",
-  "version": "19.0.1.4.2",
+  "version": "20.0.1.4.2",
   "category": "Sales/CRM",
   "summary": "Public REST endpoint to create CRM leads from external websites",
   "description": """
 External Lead Integration
 =========================
 
-Published for Odoo 16.0, 17.0, 18.0 and 19.0 (Community and Enterprise).
+Published for Odoo 16.0, 17.0, 18.0, 19.0 and 20.0 (Community and Enterprise).
 
 Exposes a versioned REST endpoint (``POST /api/v1/leads``) so that external
 websites, landing pages and marketing forms can create ``crm.lead`` records

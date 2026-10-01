@@ -66,8 +66,7 @@
                                 <button type="action"
                                         name="%(external_lead_integration.action_external_lead_api_key)d"
                                         string="Manage API Keys"
-                                        class="btn-link"
-                                        icon="fa-arrow-right"/>
+                                        class="btn-link"/>
                             </setting>
                             <setting id="external_lead_cors_setting"
                                      string="Allowed CORS origins"

@@ -18,7 +18,7 @@ from odoo.tools import email_normalize
 
 # NOTE: ``base_api`` is a sibling helper module. The host type-checker cannot
 # resolve it because ``base_api`` imports ``werkzeug`` (only available inside
-# the odoo:19.0 container); the import is correct and resolves at runtime.
+# the odoo:20.0 container); the import is correct and resolves at runtime.
 from .base_api import _get_api_key_record, _json_error, _json_ok  # type: ignore[import]
 
 _logger = logging.getLogger(__name__)
