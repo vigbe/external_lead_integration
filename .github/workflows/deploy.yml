@@ -1,0 +1,119 @@
+name: Deploy Odoo Module
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths-ignore:
+      - '.github/**'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set Environment
+        id: env
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "ENV=prod" >> $GITHUB_OUTPUT
+            echo "Environment set to PRODUCTION"
+          elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "ENV=test" >> $GITHUB_OUTPUT
+            echo "Environment set to TEST"
+          fi
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: "projects/670649208826/locations/global/workloadIdentityPools/github-actions-pool/providers/github-provider"
+          service_account: "github-deploy-sa@odoo-ia-prop-com.iam.gserviceaccount.com"
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: Deploy to all Odoo VMs
+        run: |
+          MODULE_NAME=$(basename "${{ github.repository }}")
+          ENVIRONMENT="${{ steps.env.outputs.ENV }}"
+
+          echo "🚀 Deploying $MODULE_NAME to $ENVIRONMENT across all VMs"
+
+          # Discover VMs with a 'domain' label (indicates Odoo instance).
+          # erp-app-01 is EXCLUDED on purpose: it is a separate ERP instance
+          # that does not host this module and has no GitHub SSH key, so the
+          # deploy_module.sh clone always fails there and turns the workflow
+          # red for no real reason. This module only deploys to odoo-app-01.
+          VMS=$(gcloud compute instances list \
+            --project=odoo-ia-prop-com \
+            --filter="status=RUNNING AND labels.domain:* AND name!=erp-app-01" \
+            --format="value(name,zone)" \
+            --quiet)
+
+          if [ -z "$VMS" ]; then
+            echo "⚠️  No running Odoo VMs found."
+            exit 0
+          fi
+
+          echo "📋 Found VMs:"
+          echo "$VMS"
+          echo ""
+
+          # Pre-configure SSH to avoid interactive prompts during loop
+          gcloud compute config-ssh --project=odoo-ia-prop-com --quiet 2>/dev/null || true
+
+          # Use temp file to track failures across subshell
+          FAILFILE=$(mktemp)
+          echo "0" > "$FAILFILE"
+
+          # IMPORTANT: iterate over fd 3, not stdin. `gcloud compute ssh` inside
+          # the loop consumes fd 0 and eats the next VM line, so a plain
+          # `done <<< "$VMS"` processes only the FIRST VM (odoo-app-01 was
+          # silently skipped, leaving it down). fd 3 isolates loop input.
+          while IFS=$'\t' read -r VM_NAME VM_ZONE <&3; do
+            if [ -z "$VM_NAME" ]; then continue; fi
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "📦 Deploying to $VM_NAME ($VM_ZONE)..."
+
+            if gcloud compute ssh "vigbe@$VM_NAME" \
+              --project=odoo-ia-prop-com \
+              --zone="$VM_ZONE" \
+              --tunnel-through-iap \
+              --force-key-file-overwrite \
+              --no-user-output-enabled \
+              --ssh-flag="-o ConnectTimeout=60" \
+              --ssh-flag="-n" \
+              --command="cd ~/odoo_deploy_files && ./deploy_module.sh \"$MODULE_NAME\" \"$ENVIRONMENT\"" </dev/null; then
+              echo "✅ $VM_NAME: Deploy successful"
+            else
+              echo "❌ $VM_NAME: Deploy failed"
+              echo "1" > "$FAILFILE"
+            fi
+          done 3<<< "$(echo "$VMS")"
+
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+          FAILED=$(cat "$FAILFILE")
+          rm -f "$FAILFILE"
+
+          if [ "$FAILED" -eq 1 ]; then
+            echo "❌ One or more VMs failed. Check logs above."
+            exit 1
+          fi
+
+          echo "🎉 All VMs deployed successfully!"
