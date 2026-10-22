@@ -30,6 +30,32 @@ class TestLeadApi(HttpCase):
             cls.env["ir.config_parameter"].sudo().set_param(
                 "external_lead_integration.default_team_id", cls.team.id
             )
+        # F6 discovery: the property link maps only when real_estate_products
+        # is installed on this DB (the module itself depends on base+crm).
+        cls.has_propiedad = (
+            "propiedad_id" in cls.env["crm.lead"]._fields
+            and "product.real_estate" in cls.env
+        )
+        cls.property = False
+        if cls.has_propiedad:
+            # Reuse an existing listing when the tenant has one; otherwise
+            # create a minimal draft (required: name/tipo/operacion/moneda/
+            # propietario/horarios; casa avoids the unidad constraint).
+            cls.property = cls.env["product.real_estate"].search([], limit=1)
+            if not cls.property:
+                cls.property = cls.env["product.real_estate"].create(
+                    {
+                        "name": "Test Property ELI",
+                        "tipo_propiedad": "casa",
+                        "operacion": "venta",
+                        "tipo_moneda": "uf",
+                        "propietario_id": cls.env["res.partner"]
+                        .create({"name": "Test Propietario ELI"})
+                        .id,
+                        "horario_contacto_desde": 8.0,
+                        "horario_contacto_hasta": 19.0,
+                    }
+                )
 
     def _post(self, payload, api_key=None, no_header=False):
         """Send a JSON POST to ``/api/v1/leads``.
@@ -254,6 +280,72 @@ class TestLeadApi(HttpCase):
         resp2 = self._post({"name": "Second", "email": "samedup@example.com"})
         self.assertEqual(resp2.status_code, 200)
         self.assertEqual(resp2.json()["lead_id"], first_id)
+
+    # ------------------------------------------------------------------ #
+    # F6: property link (optional real_estate_products glue).            #
+    # ------------------------------------------------------------------ #
+
+    def test_property_id_links_lead(self):
+        """A numeric property_id (product.real_estate id) links the lead."""
+        if not self.has_propiedad:
+            self.skipTest("real estate fields absent")
+        resp = self._post(
+            {
+                "name": "Prop Link",
+                "email": "proplink@example.com",
+                "property_id": self.property.id,
+            }
+        )
+        self.assertEqual(resp.status_code, 201, resp.text)
+        lead = self.env["crm.lead"].browse(resp.json()["lead_id"])
+        self.assertEqual(lead.propiedad_id, self.property)
+
+    def test_unknown_property_id_still_creates_lead(self):
+        """An unknown property_id never blocks the lead (created, unlinked)."""
+        if not self.has_propiedad:
+            self.skipTest("real estate fields absent")
+        resp = self._post(
+            {
+                "name": "Prop Unknown",
+                "email": "propunknown@example.com",
+                "property_id": 99999999,
+            }
+        )
+        self.assertEqual(resp.status_code, 201, resp.text)
+        lead = self.env["crm.lead"].browse(resp.json()["lead_id"])
+        self.assertTrue(lead.exists())
+        self.assertFalse(lead.propiedad_id)
+
+    def test_numeric_property_ref_fallback_links_lead(self):
+        """With no property_id, an all-digits property_ref links the lead."""
+        if not self.has_propiedad:
+            self.skipTest("real estate fields absent")
+        resp = self._post(
+            {
+                "name": "Prop Ref",
+                "email": "propref@example.com",
+                "property_ref": str(self.property.id),
+            }
+        )
+        self.assertEqual(resp.status_code, 201, resp.text)
+        lead = self.env["crm.lead"].browse(resp.json()["lead_id"])
+        self.assertEqual(lead.propiedad_id, self.property)
+
+    def test_malformed_property_id_ignored(self):
+        """A malformed property_id (non-numeric) is ignored; lead is created."""
+        if not self.has_propiedad:
+            self.skipTest("real estate fields absent")
+        resp = self._post(
+            {
+                "name": "Prop Bad",
+                "email": "propbad@example.com",
+                "property_id": "abc",
+            }
+        )
+        self.assertEqual(resp.status_code, 201, resp.text)
+        lead = self.env["crm.lead"].browse(resp.json()["lead_id"])
+        self.assertTrue(lead.exists())
+        self.assertFalse(lead.propiedad_id)
 
     # ------------------------------------------------------------------ #
     # Legacy key migration (pre-hardening plaintext -> SHA-256 hash).    #

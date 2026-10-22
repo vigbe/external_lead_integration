@@ -197,6 +197,41 @@ class ExternalLeadApiController(http.Controller):
         if "company_id" in lead_fields:
             vals["company_id"] = key_company.id
 
+        # F6: property link — lead DATA from the body (unlike attribution, F3):
+        # the public website sends the listing the visitor is asking about
+        # (property_id = product.real_estate id when the page ref is numeric,
+        # property_ref as a readable fallback). The value is validated against
+        # product.real_estate; an unknown or malformed ref NEVER blocks lead
+        # creation. Runtime guards keep the module portable on a plain
+        # base+crm install (the field/model come from real_estate_products).
+        raw_prop = data.get("property_id")
+        if isinstance(raw_prop, bool) or raw_prop in (None, ""):
+            # Fallback: only an int or an all-digits string (never a JSON
+            # bool — bool is an int subclass).
+            raw_prop = data.get("property_ref")
+            if isinstance(raw_prop, bool) or not (
+                isinstance(raw_prop, int)
+                or (isinstance(raw_prop, str) and raw_prop.isdigit())
+            ):
+                raw_prop = None
+        try:
+            prop_pid = int(raw_prop)
+        except (TypeError, ValueError):
+            prop_pid = None
+        if prop_pid and prop_pid > 0:
+            if "propiedad_id" in lead_fields and "product.real_estate" in request.env:
+                prop = (
+                    request.env["product.real_estate"].sudo().browse(prop_pid).exists()
+                )
+                if prop:
+                    vals["propiedad_id"] = prop.id
+                else:
+                    _logger.warning(
+                        "external lead: property_id=%s not found on "
+                        "product.real_estate; creating lead without property",
+                        prop_pid,
+                    )
+
         # 6. Deduplicate by email when enabled (return the existing lead).
         if dedup and email_from:
             normalized = email_normalize(email_from)
