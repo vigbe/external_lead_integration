@@ -1,219 +1,200 @@
-<section class="oe_dark">
-  <div class="oe_row oe_spaced" style="max-width: 920px; margin: 0 auto">
-    <div class="oe_span12 text-center" style="padding: 30px 0">
-      <h2 class="oe_slogan" style="font-size: 2.3em; color: #2563eb">
-        External Lead Integration
-      </h2>
-      <h3
-        class="oe_slogan"
-        style="font-size: 1.2em; color: #666; font-weight: 300"
-      >
-        A versioned REST endpoint that lets external websites, landing pages and
-        forms create CRM leads in your Odoo — no user session needed.
-      </h3>
-      <p style="margin-top: 10px; font-size: 1.05em">
-        Developed by
-        <a
-          href="https://vicbas.com"
-          target="_blank"
-          style="font-weight: bold; color: #2563eb"
-          >vicbas.com</a
-        >
-      </p>
+<section style="font-family:Inter,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1f2430;max-width:1080px;margin:0 auto;padding:0 12px 40px">
+
+  <!-- Banner -->
+  <div style="margin:12px 0 0;text-align:center">
+    <img src="thumbnail.png" alt="External Lead Integration banner" style="width:100%;max-width:1080px;border-radius:16px;box-shadow:0 18px 40px rgba(16,24,40,.16)"/>
+  </div>
+
+  <!-- Intro -->
+  <div style="text-align:center;margin:40px auto 0;max-width:820px">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#173F9E">Odoo 17 &#183; Community &amp; Enterprise</div>
+    <h1 style="font-size:36px;font-weight:800;color:#1f2430;margin:8px 0 0;letter-spacing:-.02em">External Lead Integration</h1>
+    <p style="font-size:20px;font-weight:600;color:#173F9E;margin:10px 0 0">Website forms straight into your CRM</p>
+    <p style="font-size:17px;line-height:1.7;color:#5b6472;margin:16px 0 0">External Lead Integration exposes <b>POST /api/v1/leads</b> so landing pages, marketing forms and other systems can create <b>crm.lead</b> records without an Odoo user session. Each integration gets its own API key.</p>
+  </div>
+
+  <!-- Features -->
+  <div style="margin-top:52px">
+    
+    <div style="text-align:center;margin:0 0 28px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#173F9E">Features</div>
+      <h2 style="font-size:30px;font-weight:800;color:#1f2430;margin:8px 0 0;letter-spacing:-.01em">What it does</h2>
     </div>
-    <div class="oe_span12 text-center">
-      <div class="oe_demo oe_picture oe_screenshot">
-        <img
-          src="thumbnail.png"
-          alt="Module banner"
-          style="
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-            margin: 10px 0;
-          "
-        />
+    <div class="row" style="margin:0 -10px;display:flex;flex-wrap:wrap">
+        <div class="col-md-4 col-sm-6" style="padding:10px">
+          <div style="height:100%;background:#fff;border:1px solid #e7e9ef;border-radius:14px;padding:22px 20px;box-shadow:0 1px 2px rgba(16,24,40,.04)">
+            <div style="width:46px;height:46px;border-radius:12px;background:#2F80ED1f;color:#173F9E;display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+              <i class="fa fa-plug" style="font-size:21px;color:#173F9E"></i>
+            </div>
+            <h4 style="font-size:17px;font-weight:700;color:#1f2430;margin:0 0 8px">One endpoint for every site</h4>
+            <p style="font-size:14.5px;line-height:1.6;color:#5b6472;margin:0">Send a JSON body with an <b>X-API-Key</b> header from forms, landing pages or backend services.</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6" style="padding:10px">
+          <div style="height:100%;background:#fff;border:1px solid #e7e9ef;border-radius:14px;padding:22px 20px;box-shadow:0 1px 2px rgba(16,24,40,.04)">
+            <div style="width:46px;height:46px;border-radius:12px;background:#2F80ED1f;color:#173F9E;display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+              <i class="fa fa-key" style="font-size:21px;color:#173F9E"></i>
+            </div>
+            <h4 style="font-size:17px;font-weight:700;color:#1f2430;margin:0 0 8px">Hashed API keys</h4>
+            <p style="font-size:14.5px;line-height:1.6;color:#5b6472;margin:0">Keys are stored as a <b>SHA-256 hash</b>, shown once in a copyable dialog, and can be rotated or archived.</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6" style="padding:10px">
+          <div style="height:100%;background:#fff;border:1px solid #e7e9ef;border-radius:14px;padding:22px 20px;box-shadow:0 1px 2px rgba(16,24,40,.04)">
+            <div style="width:46px;height:46px;border-radius:12px;background:#2F80ED1f;color:#173F9E;display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+              <i class="fa fa-sliders" style="font-size:21px;color:#173F9E"></i>
+            </div>
+            <h4 style="font-size:17px;font-weight:700;color:#1f2430;margin:0 0 8px">Configurable defaults</h4>
+            <p style="font-size:14.5px;line-height:1.6;color:#5b6472;margin:0">Sales team, salesperson, stage, source and contact rules come from Settings, not from the request.</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6" style="padding:10px">
+          <div style="height:100%;background:#fff;border:1px solid #e7e9ef;border-radius:14px;padding:22px 20px;box-shadow:0 1px 2px rgba(16,24,40,.04)">
+            <div style="width:46px;height:46px;border-radius:12px;background:#2F80ED1f;color:#173F9E;display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+              <i class="fa fa-user-secret" style="font-size:21px;color:#173F9E"></i>
+            </div>
+            <h4 style="font-size:17px;font-weight:700;color:#1f2430;margin:0 0 8px">Per-key overrides</h4>
+            <p style="font-size:14.5px;line-height:1.6;color:#5b6472;margin:0">A key can force its own sales team or salesperson for one site.</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6" style="padding:10px">
+          <div style="height:100%;background:#fff;border:1px solid #e7e9ef;border-radius:14px;padding:22px 20px;box-shadow:0 1px 2px rgba(16,24,40,.04)">
+            <div style="width:46px;height:46px;border-radius:12px;background:#2F80ED1f;color:#173F9E;display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+              <i class="fa fa-clone" style="font-size:21px;color:#173F9E"></i>
+            </div>
+            <h4 style="font-size:17px;font-weight:700;color:#1f2430;margin:0 0 8px">Deduplication</h4>
+            <p style="font-size:14.5px;line-height:1.6;color:#5b6472;margin:0">Optional: the same email returns the existing open lead instead of a duplicate.</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6" style="padding:10px">
+          <div style="height:100%;background:#fff;border:1px solid #e7e9ef;border-radius:14px;padding:22px 20px;box-shadow:0 1px 2px rgba(16,24,40,.04)">
+            <div style="width:46px;height:46px;border-radius:12px;background:#2F80ED1f;color:#173F9E;display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+              <i class="fa fa-code" style="font-size:21px;color:#173F9E"></i>
+            </div>
+            <h4 style="font-size:17px;font-weight:700;color:#1f2430;margin:0 0 8px">Real HTTP semantics</h4>
+            <p style="font-size:14.5px;line-height:1.6;color:#5b6472;margin:0">Explicit status codes (201, 200, 400, 401, 422, 500), always with a JSON body.</p>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div style="margin-top:52px">
+    
+    <div style="text-align:center;margin:0 0 28px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#173F9E">Getting started</div>
+      <h2 style="font-size:30px;font-weight:800;color:#1f2430;margin:8px 0 0;letter-spacing:-.01em">How it works</h2>
+    </div>
+    <div style="max-width:820px;margin:0 auto;background:#fff;border:1px solid #e7e9ef;border-radius:14px;padding:10px 24px">
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:14px 0;">
+          <div style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#173F9E;color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center">1</div>
+          <div>
+            <div style="font-size:16px;font-weight:700;color:#1f2430">Install</div>
+            <div style="font-size:14.5px;line-height:1.6;color:#5b6472;margin-top:2px">Only the standard <b>crm</b> dependency.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-top:1px solid #eceef3;">
+          <div style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#173F9E;color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center">2</div>
+          <div>
+            <div style="font-size:16px;font-weight:700;color:#1f2430">Generate a key</div>
+            <div style="font-size:14.5px;line-height:1.6;color:#5b6472;margin-top:2px">Settings &#8594; External Lead API Keys &#8594; New. Copy it: it is shown only once.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-top:1px solid #eceef3;">
+          <div style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#173F9E;color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center">3</div>
+          <div>
+            <div style="font-size:16px;font-weight:700;color:#1f2430">Set the defaults</div>
+            <div style="font-size:14.5px;line-height:1.6;color:#5b6472;margin-top:2px">Pick the team, salesperson, stage, source, contact requirement and deduplication.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-top:1px solid #eceef3;">
+          <div style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#173F9E;color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center">4</div>
+          <div>
+            <div style="font-size:16px;font-weight:700;color:#1f2430">Send leads</div>
+            <div style="font-size:14.5px;line-height:1.6;color:#5b6472;margin-top:2px">POST to <code>https://your-odoo/api/v1/leads</code> with the key header and a JSON body.</div>
+          </div>
+        </div>
+    </div>
+    <div style="max-width:820px;margin:0 auto">
+      <div style="margin-top:22px;background:#121826;border-radius:12px;padding:18px 20px;overflow-x:auto">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8b95a7;margin-bottom:8px">Example</div>
+        <pre style="margin:0;background:transparent;border:0;padding:0;color:#d6deeb;font-size:13.5px;line-height:1.6;white-space:pre">curl -X POST https://your-odoo/api/v1/leads \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -H &#x27;X-API-Key: oo_xxxxxxxxxxxxxxxx&#x27; \
+  -d &#x27;{&quot;name&quot;: &quot;Jane Doe&quot;, &quot;email&quot;: &quot;jane@example.com&quot;,
+       &quot;message&quot;: &quot;I want a quote&quot;}&#x27;</pre>
+      </div></div>
+  </div>
+
+  <!-- Details -->
+  <div class="row" style="margin-top:52px;display:flex;flex-wrap:wrap">
+    <div class="col-md-7" style="padding:10px">
+      <h3 style="font-size:20px;font-weight:800;color:#1f2430;margin:0 0 14px">Details</h3>
+      <div style="border:1px solid #e7e9ef;border-radius:14px;overflow:hidden;background:#fff">
+        <table style="width:100%;border-collapse:collapse;font-size:14.5px;margin:0">
+          <tr style="background:#f6f7fa">
+            <th style="padding:12px 16px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b6472">Feature</th>
+            <th style="padding:12px 16px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b6472">Detail</th>
+          </tr>
+          <tr>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;font-weight:700;color:#1f2430;width:34%;vertical-align:top">Responses</td>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;color:#5b6472">201 created &#183; 200 duplicate &#183; 400/401/422/500 errors, always JSON</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;font-weight:700;color:#1f2430;width:34%;vertical-align:top">Legacy keys</td>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;color:#5b6472">Plaintext keys from older versions are hashed on their first request</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;font-weight:700;color:#1f2430;width:34%;vertical-align:top">Real-estate fields</td>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;color:#5b6472">Optional fields are mapped only when they exist on crm.lead</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;font-weight:700;color:#1f2430;width:34%;vertical-align:top">Access control</td>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;color:#5b6472">A dedicated External Lead Admin group manages the keys</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;font-weight:700;color:#1f2430;width:34%;vertical-align:top">Languages</td>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;color:#5b6472">English and Spanish (es, es_CL)</td>
+          </tr>
+        </table>
       </div>
     </div>
-    <div class="oe_span12 oe_mt32 text-center" style="padding: 20px 0 6px">
-      <h3 style="color: #2563eb">What it does</h3>
-    </div>
-    <div class="oe_span12 oe_mt16 text-center">
-      <div class="oe_span4 oe_mt16 text-center">
-        <span class="fa fa-plug fa-3x" style="color: #2563eb"></span>
-        <h4>One endpoint for every site</h4>
-        <p class="text-muted" style="text-align: left">
-          <strong>POST /api/v1/leads</strong> with a JSON body and an
-          <code>X-API-Key</code> header. Your landing pages, marketing forms or
-          backend services create leads directly in Odoo.
-        </p>
-      </div>
-      <div class="oe_span4 oe_mt16 text-center">
-        <span class="fa fa-key fa-3x" style="color: #2563eb"></span>
-        <h4>API-key authentication</h4>
-        <p class="text-muted" style="text-align: left">
-          Each integration gets its own secret key, stored as a
-          <strong>SHA-256 hash</strong> (plaintext never rests in the database),
-          shown once, and rotatable.
-        </p>
-      </div>
-      <div class="oe_span4 oe_mt16 text-center">
-        <span class="fa fa-filter fa-3x" style="color: #2563eb"></span>
-        <h4>Clean, attributed leads</h4>
-        <p class="text-muted" style="text-align: left">
-          Team / salesperson / stage / campaign come from
-          <strong>your configuration</strong> — request bodies cannot inject
-          attribution. Optional email dedup keeps the pipeline tidy.
-        </p>
-      </div>
-    </div>
-    <div class="oe_span12 oe_mt32 text-center" style="padding: 20px 0 6px">
-      <h3 style="color: #2563eb">How to use it</h3>
-    </div>
-    <div class="oe_span12 oe_mt16" style="text-align: left">
-      <p class="text-muted">Integration in four commands:</p>
-      <ol style="padding-left: 20px">
-        <li style="margin-bottom: 14px">
-          <strong style="color: #2563eb">Install the module</strong
-          ><br />Standard Community dependencies only (crm).
-        </li>
-        <li style="margin-bottom: 14px">
-          <strong style="color: #2563eb">Generate an API key</strong
-          ><br />Settings → External Lead API Keys → New. The plaintext key is
-          shown <strong>exactly once</strong> in a copyable dialog — store it in
-          your site's secrets.
-        </li>
-        <li style="margin-bottom: 14px">
-          <strong style="color: #2563eb">Configure the defaults</strong><br />In
-          Settings pick the default sales team, salesperson, stage,
-          source/campaign, whether contact info is required, and whether to
-          deduplicate by email.
-        </li>
-        <li style="margin-bottom: 14px">
-          <strong style="color: #2563eb">POST your leads</strong><br />Point
-          your form/backend at <code>https://your-odoo/api/v1/leads</code> with
-          header <code>X-API-Key</code> and a JSON body (name, email, phone,
-          message, title…).
-        </li>
-        <li style="margin-bottom: 14px">
-          <strong style="color: #2563eb">Read the response</strong><br /><code
-            >201</code
-          >
-          created · <code>200</code> duplicate (dedup on) ·
-          <code>400/401/422</code> validation, auth or key errors — always a
-          JSON body, never HTML.
-        </li>
-      </ol>
-    </div>
-    <div class="oe_span12 oe_mt32 text-center" style="padding: 20px 0 6px">
-      <h3 style="color: #2563eb">Example</h3>
-    </div>
-    <div class="oe_span12 oe_mt16" style="text-align: left">
-      <pre
-        style="
-          background: #1e293b;
-          color: #e2e8f0;
-          padding: 14px;
-          border-radius: 8px;
-          overflow-x: auto;
-        "
-      ><code>curl -X POST https://your-odoo/api/v1/leads \
-  -H 'Content-Type: application/json' \
-  -H 'X-API-Key: oo_xxxxxxxxxxxxxxxx' \
-  -d '{"name": "Jane Doe", "email": "jane@example.com", "message": "I want a quote"}'</code></pre>
-    </div>
-    <div class="oe_span12 oe_mt32 text-center" style="padding: 20px 0 6px">
-      <h3 style="color: #2563eb">Key features</h3>
-    </div>
-    <div class="oe_span12 oe_mt16" style="text-align: left">
-      <table class="table table-bordered" style="background: #fff">
-        <thead>
-          <tr>
-            <th style="background: #2563eb; color: #fff">Feature</th>
-            <th style="background: #2563eb; color: #fff">Detail</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Per-key overrides</td>
-            <td>
-              A key can force a specific sales team / salesperson for one site
-              while others use the global defaults.
-            </td>
+    <div class="col-md-5" style="padding:10px">
+      <h3 style="font-size:20px;font-weight:800;color:#1f2430;margin:0 0 14px">Requirements</h3>
+      <div style="border:1px solid #e7e9ef;border-radius:14px;overflow:hidden;background:#fff">
+        <table style="width:100%;border-collapse:collapse;font-size:14.5px;margin:0">
+          <tr style="background:#f6f7fa">
+            <th style="padding:12px 16px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b6472">Item</th>
+            <th style="padding:12px 16px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b6472">Value</th>
           </tr>
           <tr>
-            <td>Hashed keys + rotation</td>
-            <td>
-              Keys hash to SHA-256, support regeneration, archiving and lazy
-              migration of legacy plaintext keys.
-            </td>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;font-weight:700;color:#1f2430;width:34%;vertical-align:top">Odoo</td>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;color:#5b6472">17.0 &#8212; Community or Enterprise</td>
           </tr>
           <tr>
-            <td>Deduplication</td>
-            <td>
-              Optional: same email → returns the existing open lead instead of
-              creating a duplicate.
-            </td>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;font-weight:700;color:#1f2430;width:34%;vertical-align:top">Dependencies</td>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;color:#5b6472">base, crm</td>
           </tr>
           <tr>
-            <td>Group-restricted management</td>
-            <td>
-              Dedicated <em>External Lead Admin</em> group guards key
-              management.
-            </td>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;font-weight:700;color:#1f2430;width:34%;vertical-align:top">External services</td>
+            <td style="padding:12px 16px;border-top:1px solid #eceef3;color:#5b6472">None</td>
           </tr>
-          <tr>
-            <td>Multilingual UI</td>
-            <td>English + Spanish (es, es_CL) translations included.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="oe_span12 oe_mt32 text-center" style="padding: 20px 0 6px">
-      <h3 style="color: #2563eb">Requirements</h3>
-    </div>
-    <div class="oe_span12 oe_mt16" style="text-align: left">
-      <table class="table table-bordered" style="background: #fff">
-        <thead>
-          <tr>
-            <th style="background: #2563eb; color: #fff"></th>
-            <th style="background: #2563eb; color: #fff"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Odoo</td>
-            <td>17.0 (Community; Enterprise also works)</td>
-          </tr>
-          <tr>
-            <td>Dependencies</td>
-            <td>crm (standard)</td>
-          </tr>
-          <tr>
-            <td>External services</td>
-            <td>
-              None — but run the endpoint behind a reverse proxy with rate
-              limiting / reCAPTCHA at the edge
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="oe_span12 oe_mt16" style="text-align: left">
-      <div
-        style="
-          border-left: 4px solid #2563eb;
-          background: #f8f9fa;
-          padding: 10px 14px;
-          border-radius: 4px;
-        "
-      >
-        <span class="fa fa-info-circle" style="color: #2563eb"></span> Browser
-        forms: the reference <code>lead-form.html</code> shows the exact
-        request. For cross-origin browsers enable CORS at your nginx edge
-        (recommended) — keys embedded in public pages should be treated as
-        public.
+        </table>
       </div>
     </div>
   </div>
+
+    <div style="margin:28px auto 0;max-width:860px;background:#2F80ED14;border-left:4px solid #173F9E;border-radius:10px;padding:16px 20px;font-size:14.5px;line-height:1.6;color:#1f2430">
+      <i class="fa fa-info-circle" style="color:#173F9E;margin-right:6px"></i><b>Deployment:</b> run the endpoint behind a reverse proxy with rate limiting and bot protection (e.g. reCAPTCHA). For browser forms, enable CORS at the proxy, and treat keys embedded in public pages as public.
+    </div>
+
+  <!-- Support -->
+  <div style="margin-top:52px;border-radius:18px;background:#f6f7fa;border:1px solid #e7e9ef;padding:32px 24px;text-align:center">
+    <h3 style="font-size:22px;font-weight:800;color:#1f2430;margin:0">Need help or a custom feature?</h3>
+    <p style="font-size:15px;color:#5b6472;margin:8px 0 18px">Questions, installation support and custom Odoo development.</p>
+    <a href="mailto:contacto@vicbas.com" style="display:inline-block;margin:4px;padding:11px 20px;border-radius:10px;background:#173F9E;color:#fff;font-weight:700;text-decoration:none"><i class="fa fa-envelope" style="margin-right:6px"></i>contacto@vicbas.com</a>
+    <a href="https://vicbas.com" target="_blank" style="display:inline-block;margin:4px;padding:11px 20px;border-radius:10px;background:#fff;border:1px solid #d6d9e0;color:#1f2430;font-weight:700;text-decoration:none"><i class="fa fa-globe" style="margin-right:6px"></i>vicbas.com</a>
+    <p style="font-size:13px;color:#8a92a0;margin:20px 0 0">&#169; Victor Bast&#237;as Escobar &#183; Licensed under LGPL-3</p>
+  </div>
+
 </section>
