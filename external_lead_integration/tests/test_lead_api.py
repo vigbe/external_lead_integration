@@ -98,10 +98,10 @@ class TestLeadApi(HttpCase):
         self.assertEqual(resp.status_code, 422)
 
     def test_unknown_body_fields_ignored(self):
-        # Unknown body keys (e.g. property_ref) must be ignored and the lead
+        # Unknown body keys (e.g. custom_ref) must be ignored and the lead
         # still created.
         resp = self._post(
-            {"name": "Prop", "email": "prop@example.com", "property_ref": "CL-999"}
+            {"name": "Acme", "email": "acme@example.com", "custom_ref": "CL-999"}
         )
         self.assertIn(resp.status_code, (200, 201))
         self.assertTrue(resp.json().get("lead_id"))
