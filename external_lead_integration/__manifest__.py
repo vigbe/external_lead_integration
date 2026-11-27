@@ -31,9 +31,9 @@ Highlights
   contact-info requirement and optional email-based deduplication are stored in
   ``res.config.settings`` (persisted through ``ir.config_parameter``).
 * **Per-key overrides**: an API key can force a sales team / salesperson.
-* **Extensible**: optional real-estate (inmobiliario) fields are mapped to
-  ``crm.lead`` custom fields **only when those fields exist**, so the module
-  stays compatible with a plain CRM.
+* **Safe payload handling**: validates required contact fields, ignores
+  unknown JSON keys without failing, and keeps attribution (team, salesperson,
+  stage, source, campaign) strictly server-side.
 
 Security note
 -------------
